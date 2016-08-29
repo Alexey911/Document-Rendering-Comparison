@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>icepdf</artifactId>
+
+  <parent>
+    <artifactId>RenderingBenchamarks</artifactId>
+    <groupId>com.zhytnik.benchmark</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.zhytnik.benchmark</groupId>
+      <artifactId>common</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sejda</groupId>
+      <artifactId>sejda-icepdf</artifactId>
+      <version>1.0.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>com.levigo.jbig2</groupId>
+      <artifactId>levigo-jbig2-imageio</artifactId>
+      <version>1.6.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.zhytnik.benchmark</groupId>
+      <artifactId>test</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>bintray sejda</id>
+      <url>http://dl.bintray.com/sejdapdf/maven</url>
+    </repository>
+  </repositories>
+</project>
