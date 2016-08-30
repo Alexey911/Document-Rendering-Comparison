@@ -15,6 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Ghost4JReaderTest extends ReaderTest {
 
     @Override
+    protected String getResource() {
+        return PDF_RESOURCE;
+    }
+
+    @Override
     protected Reader<InputStream> getReader() {
         return new Ghost4JReader();
     }

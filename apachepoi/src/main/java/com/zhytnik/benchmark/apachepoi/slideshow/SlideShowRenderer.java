@@ -73,7 +73,7 @@ abstract class SlideShowRenderer<T extends SlideShow, S extends Sheet> implement
 
     @Override
     public void setDpi(float dpi) {
-        this.dpi = dpi;
-        transform.setToScale(dpi, dpi);
+        this.dpi = dpi / 150f;
+        transform.setToScale(this.dpi, this.dpi);
     }
 }

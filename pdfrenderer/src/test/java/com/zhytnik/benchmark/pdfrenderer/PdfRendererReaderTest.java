@@ -10,6 +10,12 @@ import java.io.InputStream;
  * @since 26.08.2016
  */
 public class PdfRendererReaderTest extends ReaderTest {
+
+    @Override
+    protected String getResource() {
+        return PDF_RESOURCE;
+    }
+
     @Override
     protected Reader<InputStream> getReader() {
         return new PdfRendererReader();

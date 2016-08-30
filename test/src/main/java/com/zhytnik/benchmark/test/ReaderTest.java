@@ -1,10 +1,12 @@
 package com.zhytnik.benchmark.test;
 
+import com.google.common.collect.ImmutableMap;
 import com.zhytnik.benchmark.common.Reader;
 import org.junit.Test;
 
 import java.awt.*;
 import java.io.InputStream;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,28 +16,35 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public abstract class ReaderTest {
 
-    static final String PDF_RESOURCE = "test.pdf";
+    protected static final String PDF_RESOURCE = "test.pdf";
+    protected static final String PPT_RESOURCE = "test.ppt";
+    protected static final String PPTX_RESOURCE = "test.pptx";
 
-    static final int PAGE_COUNT = 3;
+    static final Map<String, Integer> resourceSize = ImmutableMap.<String, Integer>builder()
+            .put(PDF_RESOURCE, 3)
+            .put(PPT_RESOURCE, 19)
+            .put(PPTX_RESOURCE, 19)
+            .build();
+
     static final int FROM = 0;
     static final int TO = 1;
 
-    InputStream pdf = ResourceLoader.load(PDF_RESOURCE);
     Reader<InputStream> reader = getReader();
 
     @Test
     public void reads() throws Exception {
-        assertThat(reader.read(pdf, FROM, TO)).isNotNull();
+        assertThat(reader.read(data(), FROM, TO)).isNotNull();
     }
 
     @Test
     public void readsWithoutLatest() throws Exception {
-        assertThat(reader.read(pdf, FROM, TO)).hasSize(1);
+        assertThat(reader.read(data(), FROM, TO)).hasSize(1);
     }
 
     @Test
     public void readsPageCount() throws Exception {
-        assertThat(reader.pageCount(pdf)).isEqualTo(PAGE_COUNT);
+        assertThat(reader.pageCount(data()))
+                .isEqualTo(resourceSize.get(getResource()));
     }
 
     @Test
@@ -45,9 +54,15 @@ public abstract class ReaderTest {
 
     int getPageSizeByDpi(float dpi) throws Exception {
         reader.setDpi(dpi);
-        final Image image = reader.read(ResourceLoader.load(PDF_RESOURCE), 0, 1).get(0);
+        final Image image = reader.read(data(), 0, 1).get(0);
         return image.getHeight(null) * image.getWidth(null);
     }
+
+    InputStream data() {
+        return ResourceLoader.load(getResource());
+    }
+
+    protected abstract String getResource();
 
     protected abstract Reader<InputStream> getReader();
 }

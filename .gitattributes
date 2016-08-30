@@ -1,4 +1,6 @@
 *.dll  binary
-*.doc  binary
 *.pdf  binary
+*.ppt  binary
+*.pptx binary
+*.doc  binary
 *.docx binary
