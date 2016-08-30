@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.InputStream;
 
+import static com.zhytnik.benchmark.test.Resources.PDF_RESOURCE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

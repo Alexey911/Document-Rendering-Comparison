@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.InputStream;
 import java.util.Map;
 
+import static com.zhytnik.benchmark.test.Resources.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -16,14 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public abstract class ReaderTest {
 
-    protected static final String PDF_RESOURCE = "test.pdf";
-    protected static final String PPT_RESOURCE = "test.ppt";
-    protected static final String PPTX_RESOURCE = "test.pptx";
-
     static final Map<String, Integer> resourceSize = ImmutableMap.<String, Integer>builder()
             .put(PDF_RESOURCE, 3)
             .put(PPT_RESOURCE, 19)
             .put(PPTX_RESOURCE, 19)
+            .put(DOC_RESOURCE, 10)
             .build();
 
     static final int FROM = 0;
