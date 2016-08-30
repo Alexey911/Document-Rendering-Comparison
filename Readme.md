@@ -1,4 +1,4 @@
-# Performance comparison of PDF rendering
+# Performance comparison rendering of PDF, PPT, PPTX formats
 
 ## Ghost4J
 - **input formats**: InputStream, File.
@@ -17,3 +17,7 @@
 - **input formats**: byte[].
 - **features**: dpi, page rotation, multiprocessing, security (password), support custom image observer.
 - **low-level details**: reserved a thread for async processing, active usage float[].
+
+## Apache POI
+- **input formats**: InputStream.
+- **features**: dpi;

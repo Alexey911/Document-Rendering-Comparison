@@ -24,6 +24,7 @@
     <module>pdfrenderer</module>
     <module>test</module>
     <module>examples</module>
+    <module>apachepoi</module>
   </modules>
 
   <build>

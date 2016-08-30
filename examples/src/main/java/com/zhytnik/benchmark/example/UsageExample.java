@@ -1,5 +1,7 @@
 package com.zhytnik.benchmark.example;
 
+import com.zhytnik.benchmark.apachepoi.slideshow.PPTToImageConverter;
+import com.zhytnik.benchmark.apachepoi.slideshow.PPTXToImageConverter;
 import com.zhytnik.benchmark.common.Reader;
 import com.zhytnik.benchmark.ghost4j.Ghost4JReader;
 import com.zhytnik.benchmark.icepdf.IcePdfReader;
@@ -35,7 +37,8 @@ public class UsageExample {
     private static void checkArguments(String[] args) {
         if (args.length != 5) {
             throw new IllegalArgumentException("Must be 5 arguments(vendor [supported: Ghost4J, ICEpdf, PDFBox, " +
-                    "PDFrenderer], path to pdf, output folder, start and end pages), there's " + args.length + " args");
+                    "PDFrenderer, POI-ppt, POI-pptx], path to pdf, output folder, start and end pages), " +
+                    "there's " + args.length + " args");
         }
     }
 
@@ -90,6 +93,14 @@ public class UsageExample {
             case "pdfrenderer":
                 System.out.println("Using PDFrenderer reader!");
                 reader = new PdfRendererReader();
+                break;
+            case "poi-ppt":
+                System.out.println("Using Apache POI PPT-reader!");
+                reader = new PPTToImageConverter();
+                break;
+            case "poi-pptx":
+                System.out.println("Using Apache POI PPTX-reader!");
+                reader = new PPTXToImageConverter();
                 break;
             default:
                 System.out.println(format("There's no \"{0}\" reader, " +
