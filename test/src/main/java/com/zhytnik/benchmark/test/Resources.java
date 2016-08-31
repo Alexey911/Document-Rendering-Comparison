@@ -14,4 +14,5 @@ public class Resources {
     public static final String PPTX_RESOURCE = "test.pptx";
     public static final String DOC_RESOURCE  = "test.doc";
     public static final String DOCX_RESOURCE = "test.docx";
+    public static final String XLS_RESOURCE = "test.xls";
 }

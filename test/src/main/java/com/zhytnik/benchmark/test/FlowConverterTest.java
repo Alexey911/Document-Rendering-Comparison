@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public abstract class FlowConverterTest {
 
-    FlowConverter<InputStream> converter = getConverter();
+    protected FlowConverter<InputStream> converter = getConverter();
 
     @Test
     public void converts() throws Exception {

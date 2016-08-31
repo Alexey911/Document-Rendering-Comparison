@@ -41,4 +41,8 @@ abstract class Docs4jConverter implements FlowConverter<InputStream> {
                 .processTimeout(5, TimeUnit.SECONDS)
                 .build();
     }
+
+    protected void shutdown() {
+        converter.shutDown();
+    }
 }
