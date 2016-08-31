@@ -1,4 +1,4 @@
-# Performance comparison rendering of PDF, PPT, PPTX formats
+# Performance comparison rendering of PDF, PPT, PPTX, DOC, DOCX formats
 
 ## Ghost4J
 - **input formats**: InputStream, File.
@@ -20,4 +20,8 @@
 
 ## Apache POI
 - **input formats**: InputStream.
-- **features**: dpi;
+- **features**: dpi.
+
+## JodConverter
+- **input formats**: InputStream.
+- **features**: dpi.

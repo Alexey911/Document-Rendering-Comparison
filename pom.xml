@@ -25,6 +25,7 @@
     <module>test</module>
     <module>examples</module>
     <module>apachepoi</module>
+    <module>jodconverter</module>
   </modules>
 
   <build>
