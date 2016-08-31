@@ -19,13 +19,14 @@ import java.net.ConnectException;
  */
 abstract class JodConverter implements FlowConverter<InputStream> {
 
-    protected static final DocumentFormat DOC, PDF, PPT;
+    protected static final DocumentFormat DOC, PDF, PPT, XLS;
 
     static {
         DocumentFormatRegistry registry = new DefaultDocumentFormatRegistry();
         DOC = registry.getFormatByFileExtension("doc");
         PDF = registry.getFormatByFileExtension("pdf");
         PPT = registry.getFormatByFileExtension("ppt");
+        XLS = registry.getFormatByFileExtension("xls");
     }
 
     @Override
