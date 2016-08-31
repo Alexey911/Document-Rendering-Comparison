@@ -18,10 +18,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class ReaderTest {
 
     static final Map<String, Integer> resourceSize = ImmutableMap.<String, Integer>builder()
-            .put(PDF_RESOURCE, 3)
-            .put(PPT_RESOURCE, 19)
-            .put(PPTX_RESOURCE, 19)
-            .put(DOC_RESOURCE, 10)
+            .put(PDF_RESOURCE, 4)
+            .put(PPT_RESOURCE, 2)
+            .put(PPTX_RESOURCE, 4)
+            .put(DOC_RESOURCE, 3)
+            .put(DOCX_RESOURCE, 2)
             .build();
 
     static final int FROM = 0;

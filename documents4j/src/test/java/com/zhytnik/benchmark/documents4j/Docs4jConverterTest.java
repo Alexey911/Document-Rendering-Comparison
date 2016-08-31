@@ -29,6 +29,7 @@ abstract class Docs4jConverterTest extends FlowConverterTest {
 
     @After
     public void destroy() {
-        ((Docs4jConverter) converter).shutdown();
+        try { ((Docs4jConverter) converter).shutdown(); }
+        catch (Exception ignored) {}
     }
 }
