@@ -27,6 +27,7 @@
     <module>apachepoi</module>
     <module>jodconverter</module>
     <module>documents4j</module>
+    <module>smartxls</module>
   </modules>
 
   <build>
