@@ -23,6 +23,7 @@ public abstract class ReaderTest {
             .put(PPTX_RESOURCE, 4)
             .put(DOC_RESOURCE, 3)
             .put(DOCX_RESOURCE, 2)
+            .put(XLS_RESOURCE, 1)
             .build();
 
     static final int FROM = 0;
