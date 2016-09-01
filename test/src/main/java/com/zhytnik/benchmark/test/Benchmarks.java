@@ -24,7 +24,7 @@ import static org.openjdk.jmh.annotations.Level.Invocation;
  */
 
 @State(Scope.Benchmark)
-public abstract class Benchmark {
+public abstract class Benchmarks {
 
     @State(Scope.Benchmark)
     public static class Single {
@@ -44,7 +44,7 @@ public abstract class Benchmark {
         data.reset();
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.SECONDS)
     @Warmup(time = 5, iterations = 14)
@@ -53,7 +53,7 @@ public abstract class Benchmark {
         bh.consume(reader.read(data, range.from, range.to));
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.SECONDS)
     @Warmup(time = 5, iterations = 14)
@@ -62,7 +62,7 @@ public abstract class Benchmark {
         bh.consume(reader.read(data, range.from, range.to));
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     @Warmup(iterations = 14)
