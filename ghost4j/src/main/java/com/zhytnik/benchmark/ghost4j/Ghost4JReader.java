@@ -17,7 +17,6 @@ import java.util.List;
 public class Ghost4JReader implements Reader<InputStream> {
 
     private PdfToImageRenderer pdfRenderer = new PdfToImageRenderer();
-    private PdfLoader pdfLoader = new PdfLoader();
 
     @Override
     public List<Image> read(InputStream data, int from, int to) throws Exception {
@@ -30,7 +29,9 @@ public class Ghost4JReader implements Reader<InputStream> {
     }
 
     private PDFDocument load(InputStream data) throws IOException {
-        return pdfLoader.load(data);
+        final PDFDocument document = new PDFDocument();
+        document.load(data);
+        return document;
     }
 
     @Override

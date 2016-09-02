@@ -13,20 +13,25 @@ import java.util.List;
 public class IcePdfReader implements Reader<InputStream> {
 
     private PdfToImageRenderer pdfRenderer = new PdfToImageRenderer();
-    private PdfLoader pdfLoader = new PdfLoader();
 
     @Override
     public List<Image> read(InputStream resource, int from, int to) throws Exception {
-        try (PDFDocument doc = pdfLoader.load(resource)) {
+        try (PDFDocument doc = load(resource)) {
             return pdfRenderer.render(doc, from, to);
         }
     }
 
     @Override
     public int pageCount(InputStream resource) throws Exception {
-        try (PDFDocument doc = pdfLoader.load(resource)) {
+        try (PDFDocument doc = load(resource)) {
             return doc.getNumberOfPages();
         }
+    }
+
+    private PDFDocument load(InputStream resource) throws Exception {
+        final PDFDocument pdf = new PDFDocument();
+        pdf.setInputStream(resource, null /*document name*/);
+        return pdf;
     }
 
     @Override

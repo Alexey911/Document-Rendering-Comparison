@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static java.nio.ByteBuffer.wrap;
+import static org.apache.commons.io.IOUtils.toByteArray;
+
 /**
  * @author Alexey Zhytnik
  * @since 26.08.2016
@@ -15,7 +18,6 @@ import java.util.List;
 public class PdfRendererReader implements Reader<InputStream> {
 
     private PdfToImageRenderer pdfRenderer = new PdfToImageRenderer();
-    private PdfLoader pdfLoader = new PdfLoader();
 
     @Override
     public List<Image> read(InputStream data, int from, int to) throws Exception {
@@ -28,7 +30,8 @@ public class PdfRendererReader implements Reader<InputStream> {
     }
 
     private PDFFile load(InputStream data) throws IOException {
-        return pdfLoader.load(data);
+        byte[] resource = toByteArray(data);
+        return new PDFFile(wrap(resource));
     }
 
     @Override
