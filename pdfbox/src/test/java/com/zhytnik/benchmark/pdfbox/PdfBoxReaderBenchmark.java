@@ -1,7 +1,7 @@
 package com.zhytnik.benchmark.pdfbox;
 
 import com.zhytnik.benchmark.common.Reader;
-import com.zhytnik.benchmark.test.Benchmark;
+import com.zhytnik.benchmark.test.Benchmarks;
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
 import org.openjdk.jmh.runner.options.Options;
 
@@ -11,7 +11,7 @@ import java.io.InputStream;
  * @author Alexey Zhytnik
  * @since 26.08.2016
  */
-public class PdfBoxReaderBenchmark extends Benchmark {
+public class PdfBoxReaderBenchmark extends Benchmarks {
 
     private static final String FAST_KCMS = "-Dsun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider";
 
