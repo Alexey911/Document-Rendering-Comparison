@@ -9,7 +9,7 @@ import java.awt.*;
  * @author Alexey Zhytnik
  * @since 29-Aug-16
  */
-class PPTRenderer extends SlideShowRenderer<HSLFSlideShow, HSLFSlide> {
+class PptRenderer extends SlideShowRenderer<HSLFSlideShow, HSLFSlide> {
     @Override
     protected Paint getSlideBackground(HSLFSlide slide) {
         return slide.getBackground().getFill().getBackgroundColor();

@@ -8,7 +8,5 @@ import java.util.List;
  * @since 25.08.2016
  */
 public interface Renderer<T> {
-    List<Image> render(T data, int from, int to) throws Exception;
-
-    void setDpi(float dpi);
+    List<Image> render(T document) throws Exception;
 }

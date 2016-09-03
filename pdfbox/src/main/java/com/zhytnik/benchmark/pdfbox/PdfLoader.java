@@ -19,11 +19,11 @@ class PdfLoader implements Loader<InputStream, PDDocument> {
     private long bufferSize = DEFAULT_BUFFER_SIZE;
 
     @Override
-    public PDDocument load(InputStream data) throws IOException {
-        return PDDocument.load(data, setupMainMemoryOnly(bufferSize));
+    public PDDocument load(InputStream document) throws IOException {
+        return PDDocument.load(document, setupMainMemoryOnly(bufferSize));
     }
 
-    public void setBufferSize(long bufferSize) {
+    void setBufferSize(long bufferSize) {
         if (bufferSize < 20L * 1024L * 1024L) {
             throw new IllegalArgumentException("Buffer size must be at least 20 MB!");
         }

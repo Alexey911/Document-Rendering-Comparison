@@ -1,10 +1,8 @@
 package com.zhytnik.benchmark.documents4j;
 
-import com.zhytnik.benchmark.common.FlowConverter;
+import com.zhytnik.benchmark.common.Type;
 
-import java.io.InputStream;
-
-import static com.zhytnik.benchmark.test.Resources.DOCX_RESOURCE;
+import static com.zhytnik.benchmark.common.Type.DOCX;
 
 /**
  * @author Alexey Zhytnik
@@ -13,12 +11,12 @@ import static com.zhytnik.benchmark.test.Resources.DOCX_RESOURCE;
 public class Docs4jDocxToPdfConverterTest extends Docs4jConverterTest {
 
     @Override
-    protected String getResource() {
-        return DOCX_RESOURCE;
+    protected Type getType() {
+        return DOCX;
     }
 
     @Override
-    protected FlowConverter<InputStream> getConverter() {
+    protected Docs4jDocxToPdfConverter getConverter() {
         return new Docs4jDocxToPdfConverter();
     }
 }

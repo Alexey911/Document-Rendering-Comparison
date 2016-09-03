@@ -1,12 +1,12 @@
 package com.zhytnik.benchmark.example;
 
-import com.zhytnik.benchmark.apachepoi.slideshow.PPTToImageConverter;
-import com.zhytnik.benchmark.apachepoi.slideshow.PPTXToImageConverter;
-import com.zhytnik.benchmark.common.Reader;
-import com.zhytnik.benchmark.ghost4j.Ghost4JReader;
-import com.zhytnik.benchmark.icepdf.IcePdfReader;
-import com.zhytnik.benchmark.pdfbox.PdfBoxReader;
-import com.zhytnik.benchmark.pdfrenderer.PdfRendererReader;
+import com.zhytnik.benchmark.apachepoi.slideshow.PoiPptConverter;
+import com.zhytnik.benchmark.apachepoi.slideshow.PoiPptxConverter;
+import com.zhytnik.benchmark.common.Converter;
+import com.zhytnik.benchmark.ghost4j.Ghost4JConverter;
+import com.zhytnik.benchmark.icepdf.IcePdfConverter;
+import com.zhytnik.benchmark.pdfbox.PdfBoxConverter;
+import com.zhytnik.benchmark.pdfrenderer.PdfRendererConverter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -44,11 +44,11 @@ public class UsageExample {
 
     private static List<Image> readPages(String vendor, String pathToPdf,
                                          int startPage, int endPage) throws Exception {
-        final Reader<InputStream> reader = choiceReader(vendor);
+        final Converter<InputStream, ?> converter = choiceConverter(vendor);
         final InputStream pdf = readFile(pathToPdf);
         int mem = getMemoryUsage();
         long t = currentTimeMillis();
-        List<Image> images = reader.read(pdf, startPage, endPage);
+        List<Image> images = null;/*converter.convert(pdf)*/
         t = currentTimeMillis() - t;
         mem = getMemoryUsage() - mem;
         printSpeed(t, endPage - startPage);
@@ -71,43 +71,43 @@ public class UsageExample {
         System.out.println(format("{0} page(-s) converted at {1} ms, {2} img/ms", count, t, speed));
     }
 
-    private static Reader<InputStream> choiceReader(String vendor) {
-        Reader<InputStream> reader;
+    private static Converter<InputStream, ?> choiceConverter(String vendor) {
+        Converter<InputStream, ?> converter;
         String s = vendor.toLowerCase();
         switch (s) {
             case "ghost4j":
-                System.out.println("Using Ghost4J reader!");
-                reader = new Ghost4JReader();
+                System.out.println("Using Ghost4J converter!");
+                converter = new Ghost4JConverter();
                 break;
             case "icepdf":
-                System.out.println("Using ICEpdf reader!");
-                reader = new IcePdfReader();
+                System.out.println("Using ICEpdf converter!");
+                converter = new IcePdfConverter();
                 break;
             case "pdfbox":
                 System.out.println(
-                        "Using PDFBox reader!\n" +
+                        "Using PDFBox converter!\n" +
                                 "If you are using JDK8, set " +
                                 "-Dsun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider or it will be very slow!!!");
-                reader = new PdfBoxReader();
+                converter = new PdfBoxConverter();
                 break;
             case "pdfrenderer":
-                System.out.println("Using PDFrenderer reader!");
-                reader = new PdfRendererReader();
+                System.out.println("Using PDFrenderer converter!");
+                converter = new PdfRendererConverter();
                 break;
             case "poi-ppt":
-                System.out.println("Using Apache POI PPT-reader!");
-                reader = new PPTToImageConverter();
+                System.out.println("Using Apache POI PPT-converter!");
+                converter = new PoiPptConverter();
                 break;
             case "poi-pptx":
-                System.out.println("Using Apache POI PPTX-reader!");
-                reader = new PPTXToImageConverter();
+                System.out.println("Using Apache POI PPTX-converter!");
+                converter = new PoiPptxConverter();
                 break;
             default:
-                System.out.println(format("There's no \"{0}\" reader, " +
-                        "used default Ghost4J reader!", vendor));
-                reader = new Ghost4JReader();
+                System.out.println(format("There's no \"{0}\" converter, " +
+                        "used default Ghost4J converter!", vendor));
+                converter = new Ghost4JConverter();
         }
-        return reader;
+        return converter;
     }
 
     private static InputStream readFile(String file) throws IOException {

@@ -9,7 +9,7 @@ import java.awt.*;
  * @author Alexey Zhytnik
  * @since 29-Aug-16
  */
-class PPTXRenderer extends SlideShowRenderer<XMLSlideShow, XSLFSlide> {
+class PptxRenderer extends SlideShowRenderer<XMLSlideShow, XSLFSlide> {
     @Override
     protected Paint getSlideBackground(XSLFSlide slide) {
         return slide.getBackground().getFillColor();

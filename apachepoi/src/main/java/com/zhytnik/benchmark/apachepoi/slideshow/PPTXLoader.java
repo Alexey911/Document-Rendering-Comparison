@@ -10,9 +10,9 @@ import java.io.InputStream;
  * @author Alexey Zhytnik
  * @since 29-Aug-16
  */
-class PPTXLoader implements Loader<InputStream, XMLSlideShow> {
+class PptxLoader implements Loader<InputStream, XMLSlideShow> {
     @Override
-    public XMLSlideShow load(InputStream resource) throws IOException {
-        return new XMLSlideShow(resource);
+    public XMLSlideShow load(InputStream document) throws IOException {
+        return new XMLSlideShow(document);
     }
 }

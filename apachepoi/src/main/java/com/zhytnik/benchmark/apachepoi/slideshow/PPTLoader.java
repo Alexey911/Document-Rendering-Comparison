@@ -10,9 +10,9 @@ import java.io.InputStream;
  * @author Alexey Zhytnik
  * @since 29-Aug-16
  */
-class PPTLoader implements Loader<InputStream, HSLFSlideShow> {
+class PptLoader implements Loader<InputStream, HSLFSlideShow> {
     @Override
-    public HSLFSlideShow load(InputStream resource) throws IOException {
-        return new HSLFSlideShow(resource);
+    public HSLFSlideShow load(InputStream document) throws IOException {
+        return new HSLFSlideShow(document);
     }
 }

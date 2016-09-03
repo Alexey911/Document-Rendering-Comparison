@@ -1,25 +1,23 @@
 package com.zhytnik.benchmark.pdfrenderer;
 
-import com.zhytnik.benchmark.common.Reader;
-import com.zhytnik.benchmark.test.ReaderTest;
+import com.zhytnik.benchmark.common.Type;
+import com.zhytnik.benchmark.test.ConverterTest;
 
-import java.io.InputStream;
-
-import static com.zhytnik.benchmark.test.Resources.PDF_RESOURCE;
+import static com.zhytnik.benchmark.common.Type.PDF;
 
 /**
  * @author Alexey Zhytnik
  * @since 26.08.2016
  */
-public class PdfRendererReaderTest extends ReaderTest {
+public class PdfRendererReaderTest extends ConverterTest {
 
     @Override
-    protected String getResource() {
-        return PDF_RESOURCE;
+    protected Type getType() {
+        return PDF;
     }
 
     @Override
-    protected Reader<InputStream> getReader() {
-        return new PdfRendererReader();
+    protected PdfRendererConverter getConverter() {
+        return new PdfRendererConverter();
     }
 }

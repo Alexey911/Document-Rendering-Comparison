@@ -12,7 +12,7 @@ import com.sun.star.frame.XStorable;
 import com.sun.star.io.XOutputStream;
 import com.sun.star.lang.XComponent;
 import com.sun.star.uno.UnoRuntime;
-import com.zhytnik.benchmark.common.FlowConverter;
+import com.zhytnik.benchmark.common.Converter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import static org.apache.commons.io.IOUtils.toByteArray;
  * @author Alexey Zhytnik
  * @since 31.08.2016
  */
-abstract class JodConverter implements FlowConverter<InputStream> {
+abstract class JodConverter implements Converter<InputStream, ByteArrayOutputStream> {
 
     private static final Map<String, Object> DEFAULT_LOAD_PROPERTIES;
 
@@ -44,11 +44,11 @@ abstract class JodConverter implements FlowConverter<InputStream> {
     }
 
     @Override
-    public ByteArrayOutputStream convert(InputStream resource) throws Exception {
+    public ByteArrayOutputStream convert(InputStream document) throws Exception {
         final OpenOfficeConnection connection = new SocketOpenOfficeConnection();
         try {
             connection.connect();
-            final XComponent doc = load(connection, resource, getInputFormat());
+            final XComponent doc = load(connection, document, getInputFormat());
             refresh(doc);
             return convert(doc, getInputFormat(), PDF);
         } finally {
@@ -56,8 +56,10 @@ abstract class JodConverter implements FlowConverter<InputStream> {
         }
     }
 
-    public XComponent load(OpenOfficeConnection connection, InputStream input,
-                           DocumentFormat format) throws Exception {
+    protected abstract DocumentFormat getInputFormat();
+
+    private XComponent load(OpenOfficeConnection connection, InputStream input,
+                            DocumentFormat format) throws Exception {
         XComponentLoader desktop = connection.getDesktop();
         PropertyValue[] settings = configure(input, format);
         return desktop.loadComponentFromURL("private:stream", "_blank", 0, settings);
@@ -90,6 +92,4 @@ abstract class JodConverter implements FlowConverter<InputStream> {
         config.put("OutputStream", stream);
         return properties(config);
     }
-
-    protected abstract DocumentFormat getInputFormat();
 }
