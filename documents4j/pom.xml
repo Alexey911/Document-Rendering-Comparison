@@ -8,8 +8,8 @@
     <artifactId>documents4j</artifactId>
 
     <parent>
-        <artifactId>RenderingBenchamarks</artifactId>
-        <groupId>com.zhytnik.benchmark</groupId>
+        <artifactId>ConvertersCompetition</artifactId>
+        <groupId>com.zhytnik.converter</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -19,15 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.zhytnik.benchmark</groupId>
+            <groupId>com.zhytnik.converter</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zhytnik.benchmark</groupId>
-            <artifactId>test</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.documents4j</groupId>
@@ -43,6 +37,12 @@
             <groupId>com.documents4j</groupId>
             <artifactId>documents4j-transformer-msoffice-excel</artifactId>
             <version>${documents4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhytnik.converter</groupId>
+            <artifactId>test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
