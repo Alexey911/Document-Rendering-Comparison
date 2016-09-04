@@ -1,7 +1,9 @@
 package com.zhytnik.converter.apachepoi.doc;
 
 import com.zhytnik.converter.common.Converter;
+import com.zhytnik.converter.common.PageObserver;
 import com.zhytnik.converter.common.Type;
+import org.apache.poi.hwpf.HWPFDocument;
 import org.docx4j.convert.in.Doc;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +17,8 @@ import static com.zhytnik.converter.common.Type.DOC;
  * @author Alexey Zhytnik
  * @since 30-Aug-16
  */
-public class PoiDocToPdfConverter implements Converter<InputStream, ByteArrayOutputStream> {
+public class PoiDocToPdfConverter implements
+        Converter<InputStream, ByteArrayOutputStream>, PageObserver<InputStream> {
 
     private static final PrintStream DO_NOTHING_PRINT;
 
@@ -42,6 +45,12 @@ public class PoiDocToPdfConverter implements Converter<InputStream, ByteArrayOut
         PrintStream original = System.out;
         System.setOut(out);
         return original;
+    }
+
+    @Override
+    public int getPageCount(InputStream stream) throws Exception {
+        final HWPFDocument doc = new HWPFDocument(stream);
+        return doc.getSummaryInformation().getPageCount();
     }
 
     @Override
