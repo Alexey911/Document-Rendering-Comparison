@@ -67,8 +67,8 @@ public class QualityComparison {
     }
 
     private File getOutputFolder(Converter converter, File file, Type type) {
-        String output = MessageFormat.format("{0}/{1}/{2}/{3}", this.output, getConverterName(converter),
-                type.getExtension(), removeExtension(file.getName()));
+        String output = MessageFormat.format("{0}/{1}/{2}/{3}", this.output, type.getExtension(),
+                removeExtension(file.getName()), getConverterName(converter));
         return new File(output);
     }
 }
