@@ -16,7 +16,7 @@ public class Docs4JXlsxToPdfConverterTest extends Docs4jConverterTest {
     }
 
     @Override
-    protected Docs4XlsxToPdfConverter getConverter() {
-        return new Docs4XlsxToPdfConverter();
+    protected Docs4JXlsxToPdfConverter getConverter() {
+        return new Docs4JXlsxToPdfConverter();
     }
 }

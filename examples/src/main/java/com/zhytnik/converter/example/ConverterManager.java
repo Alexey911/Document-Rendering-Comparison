@@ -1,13 +1,12 @@
 package com.zhytnik.converter.example;
 
-import com.sun.star.uno.RuntimeException;
 import com.zhytnik.converter.apachepoi.doc.PoiDocToPdfConverter;
 import com.zhytnik.converter.apachepoi.doc.PoiDocxToPdfConverter;
 import com.zhytnik.converter.apachepoi.slideshow.PoiPptConverter;
 import com.zhytnik.converter.apachepoi.slideshow.PoiPptxConverter;
 import com.zhytnik.converter.common.Converter;
 import com.zhytnik.converter.common.Type;
-import com.zhytnik.converter.documents4j.Docs4XlsxToPdfConverter;
+import com.zhytnik.converter.documents4j.Docs4JXlsxToPdfConverter;
 import com.zhytnik.converter.documents4j.Docs4jDocToPdfConverter;
 import com.zhytnik.converter.documents4j.Docs4jDocxToPdfConverter;
 import com.zhytnik.converter.documents4j.Docs4jXlsToPdfConverter;
@@ -22,8 +21,13 @@ import com.zhytnik.converter.smartxls.SmartXlsConverter;
 import com.zhytnik.converter.smartxls.SmartXlsxConverter;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.zhytnik.converter.common.Type.*;
+import static com.zhytnik.converter.example.Logger.CYAN;
+import static com.zhytnik.converter.example.Logger.RED;
+import static com.zhytnik.converter.example.Logger.log;
 
 /**
  * @author Alexey Zhytnik
@@ -31,22 +35,53 @@ import static com.zhytnik.converter.common.Type.*;
  */
 class ConverterManager {
 
-    private final String framework;
     private final String format;
+    private final String framework;
+    private final String frameworkReduction;
 
     ConverterManager(String framework, String format) {
-        this.framework = framework.toLowerCase();
+        this.framework = framework;
+        this.frameworkReduction = framework.toLowerCase();
         this.format = format;
     }
 
-    public Converter getConverterByName() {
-        Converter c = getByName();
-        System.out.println(MessageFormat.format("Selected \"{0}\"", c));
+    static List<Converter> getAll() {
+        return Arrays.asList(
+                new PoiDocToPdfConverter(),
+                new PoiDocxToPdfConverter(),
+                new PoiPptConverter(),
+                new PoiPptxConverter(),
+                new Docs4jDocToPdfConverter(),
+                new Docs4jDocxToPdfConverter(),
+                new Docs4jXlsToPdfConverter(),
+                new Docs4JXlsxToPdfConverter(),
+                new Ghost4JConverter(),
+                new IcePdfConverter(),
+                new JodDocToPdfConverter(),
+                new JodPptToPdfConverter(),
+                new JodXlsToPdfConverter(),
+                new PdfBoxConverter(),
+                new PdfRendererConverter(),
+                new SmartXlsConverter(),
+                new SmartXlsxConverter()
+        );
+    }
+
+    static String getConverterName(Converter converter) {
+        String desc = converter.toString();
+        int end = desc.indexOf(" ");
+        if (end == -1) end = desc.length();
+        return desc.substring(0, end);
+    }
+
+    public Converter getByName() {
+        Converter c = getByNameReduction(frameworkReduction);
+        log(MessageFormat.format("Selected \"{0}\"", c), CYAN);
         return c;
     }
 
-    private Converter getByName() {
-        switch (framework) {
+    private Converter getByNameReduction(String reduction) {
+        switch (reduction) {
             case "icepdf"      : return getIcePdfConverter();
             case "pdfbox"      : return getPdfBoxConverter();
             case "ghost4j"     : return getGhost4JConverter();
@@ -60,7 +95,7 @@ class ConverterManager {
     }
 
     private Converter failOnUnknownFramework() {
-        throw new RuntimeException(MessageFormat.format("Unknown \"{0}\" framework", framework));
+        throw new IllegalArgumentException(MessageFormat.format("Unknown \"{0}\" framework", framework));
     }
 
     private Converter getGhost4JConverter() {
@@ -72,9 +107,9 @@ class ConverterManager {
     }
 
     private Converter getPdfBoxConverter() {
-        System.out.println("In \"JDK 8\" set " +
+        log("In \"JDK 8\" set " +
                 "-Dsun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider " +
-                "for faster rendering*");
+                "for faster rendering", RED);
         return new PdfBoxConverter();
     }
 
@@ -107,7 +142,7 @@ class ConverterManager {
         if (isFormat(DOC))  return new Docs4jDocToPdfConverter();
         if (isFormat(DOCX)) return new Docs4jDocxToPdfConverter();
         if (isFormat(XLS))  return new Docs4jXlsToPdfConverter();
-        if (isFormat(XLSX)) return new Docs4XlsxToPdfConverter();
+        if (isFormat(XLSX)) return new Docs4JXlsxToPdfConverter();
         return failOnUnknownFormat();
     }
 
@@ -116,6 +151,8 @@ class ConverterManager {
     }
 
     private Converter failOnUnknownFormat() {
-        throw new IllegalArgumentException(MessageFormat.format("The framework don''t support \"{0}\" format", format));
+        throw new IllegalArgumentException(
+                MessageFormat.format("\"{0}\" don''t support \"{1}\" format", framework, format)
+        );
     }
 }

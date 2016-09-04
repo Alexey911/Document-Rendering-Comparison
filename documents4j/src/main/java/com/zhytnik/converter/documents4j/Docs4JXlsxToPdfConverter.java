@@ -9,7 +9,7 @@ import static com.documents4j.api.DocumentType.XLSX;
  * @author Alexey Zhytnik
  * @since 03-Sep-16
  */
-public class Docs4XlsxToPdfConverter extends Docs4jConverter {
+public class Docs4JXlsxToPdfConverter extends Docs4jConverter {
 
     @Override
     protected DocumentType getType() {

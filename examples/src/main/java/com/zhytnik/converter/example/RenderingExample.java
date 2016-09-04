@@ -3,15 +3,17 @@ package com.zhytnik.converter.example;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
-import com.beust.jcommander.converters.FileConverter;
 import com.zhytnik.converter.common.Converter;
 
-import java.io.*;
-import java.text.MessageFormat;
+import java.io.File;
+import java.io.InputStream;
 
 import static com.zhytnik.converter.common.ConverterUtils.asSelective;
 import static com.zhytnik.converter.common.ConverterUtils.isSelective;
-import static org.apache.pdfbox.io.IOUtils.toByteArray;
+import static com.zhytnik.converter.example.FileManager.loadFile;
+import static com.zhytnik.converter.example.Logger.BLUE;
+import static com.zhytnik.converter.example.Logger.RED;
+import static com.zhytnik.converter.example.Logger.log;
 
 /**
  * @author Alexey Zhytnik
@@ -19,14 +21,6 @@ import static org.apache.pdfbox.io.IOUtils.toByteArray;
  */
 @SuppressWarnings("unchecked")
 public class RenderingExample {
-
-    public class RenderingInterval {
-        @Parameter(names = "-begin", description = "First rendering page")
-        public Integer begin;
-
-        @Parameter(names = "-end", description = "Last rendering page")
-        public Integer end;
-    }
 
     @Parameter(names = "-converter", required = true,
             description = "Name of rendering framework")
@@ -37,42 +31,50 @@ public class RenderingExample {
     public String format;
 
     @Parameter(names = "-source", required = true,
-            description = "Path to document file", converter = FileConverter.class)
+            description = "Path to document file")
     public File source;
 
     @Parameter(names = "-output", required = true,
-            description = "Path to output folder", converter = FileConverter.class)
+            description = "Path to output folder")
     public File output;
 
     @Parameter(names = "-clear", description = "Clear output folder")
-    public Boolean clear = false;
+    public Boolean clear = true;
+
+    public class RenderingInterval {
+        @Parameter(names = "-begin", description = "First rendering page")
+        public Integer begin;
+
+        @Parameter(names = "-end", description = "Last rendering page")
+        public Integer end;
+    }
 
     @ParametersDelegate
     public RenderingInterval interval = new RenderingInterval();
 
     public static void main(String[] args) throws Exception {
-        displayFrameworks();
         RenderingExample example = new RenderingExample();
         new JCommander(example, args).usage();
+        displayFrameworks();
         example.run();
     }
 
     private static void displayFrameworks() {
-        System.out.println("Enabled frameworks:");
-        System.out.println("- ApachePOI    doc, docx, ppt, pptx");
-        System.out.println("- documents4J  doc, docx, xls, xlsx");
-        System.out.println("- Ghost4J      pdf");
-        System.out.println("- IcePDF       pdf");
-        System.out.println("- PDFBox       pdf");
-        System.out.println("- PDFRenderer  pdf");
-        System.out.println("- SmartXLS     xls, xlsx");
+        log("Enabled frameworks:", BLUE);
+        log("- apachepoi    doc, docx, ppt, pptx", BLUE);
+        log("- documents4j  doc, docx, xls, xlsx", BLUE);
+        log("- SmartXLS     xls, xlsx", BLUE);
+        log("- PDFBox       pdf", BLUE);
+        log("- IcePDF       pdf", BLUE);
+        log("- Ghost4J      pdf", BLUE);
+        log("- PDFRenderer  pdf", BLUE);
     }
 
     public void run() throws Exception {
-        final Converter converter = new ConverterManager(vendor, format).getConverterByName();
-        final InputStream document = loadDocument(source);
-        final Object rendered = convert(converter, document);
-        new Saver(output, rendered, clear).save();
+        final Converter converter = new ConverterManager(vendor, format).getByName();
+        final InputStream document = loadFile(source);
+        final Object converted = convert(converter, document);
+        new Saver(output, clear).save(converted);
     }
 
     private Object convert(Converter converter, InputStream document) throws Exception {
@@ -82,16 +84,10 @@ public class RenderingExample {
         return converter.convert(document);
     }
 
-    private static InputStream loadDocument(File file) throws IOException {
-        ByteArrayInputStream doc = new ByteArrayInputStream(toByteArray((new FileInputStream(file))));
-        System.out.println(MessageFormat.format("Document \"{0}\" loaded", file.getName()));
-        return doc;
-    }
-
     private boolean isSelectiveMode(Converter converter) {
         if (interval.begin == null || interval.end == null) return false;
         if (isSelective(converter)) return true;
-        System.out.println("Framework not supported selective rendering");
+        log("Warning: this framework not supported selective rendering", RED);
         return false;
     }
 }
