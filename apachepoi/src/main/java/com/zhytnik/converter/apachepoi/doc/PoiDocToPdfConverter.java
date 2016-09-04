@@ -30,8 +30,11 @@ public class PoiDocToPdfConverter implements Converter<InputStream, ByteArrayOut
     public ByteArrayOutputStream convert(InputStream document) throws Exception {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final PrintStream original = setOut(DO_NOTHING_PRINT);
-        Doc.convert(document).save(output);
-        setOut(original);
+        try {
+            Doc.convert(document).save(output);
+        } finally {
+            setOut(original);
+        }
         return output;
     }
 
