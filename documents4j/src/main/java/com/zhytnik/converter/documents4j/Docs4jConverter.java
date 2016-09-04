@@ -15,13 +15,11 @@ import java.util.concurrent.TimeUnit;
  */
 abstract class Docs4jConverter implements Converter<InputStream, ByteArrayOutputStream> {
 
-    private IConverter converter = buildConverter();
-
     @Override
     public ByteArrayOutputStream convert(InputStream document) throws Exception {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        boolean conversion = converter
+        boolean conversion = buildConverter()
                 .convert(document).as(getType())
                 .to(output).as(DocumentType.PDF)
                 .execute();
@@ -30,7 +28,7 @@ abstract class Docs4jConverter implements Converter<InputStream, ByteArrayOutput
         return output;
     }
 
-    private static IConverter buildConverter() {
+    private IConverter buildConverter() {
         return LocalConverter.builder()
                 .baseFolder(null /*temporary resource folder*/)
                 .workerPool(1, 1, 1, TimeUnit.SECONDS)
