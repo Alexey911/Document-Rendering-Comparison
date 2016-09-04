@@ -13,6 +13,7 @@ import static com.zhytnik.converter.example.ConverterManager.getConverterName;
 import static com.zhytnik.converter.example.FileManager.getFolderFiles;
 import static com.zhytnik.converter.example.FileManager.loadFile;
 import static com.zhytnik.converter.example.Logger.*;
+import static org.apache.commons.io.FilenameUtils.removeExtension;
 
 /**
  * @author Alexey Zhytnik
@@ -56,22 +57,18 @@ public class QualityComparison {
         log(converter, CYAN);
         Object document = loadFile(file);
         try {
-            converterAndSave(converter, type, document);
+            Object converted = converter.convert(document);
+            File output = getOutputFolder(converter, file, type);
+            new Saver(output, true).save(converted);
         } catch (Exception e) {
             log(e.getMessage(), RED);
         }
         printDelimiter();
     }
 
-    private void converterAndSave(Converter converter, Type type, Object document) throws Exception {
-        Object converted = converter.convert(document);
-        File output = getOutputFolder(converter, type);
-        new Saver(output, true).save(converted);
-    }
-
-    private File getOutputFolder(Converter converter, Type type) {
-        String output = MessageFormat.format("{0}/{1}/{2}", this.output, getConverterName(converter),
-                type.getExtension());
+    private File getOutputFolder(Converter converter, File file, Type type) {
+        String output = MessageFormat.format("{0}/{1}/{2}/{3}", this.output, getConverterName(converter),
+                type.getExtension(), removeExtension(file.getName()));
         return new File(output);
     }
 }
