@@ -7,6 +7,8 @@ import java.io.*;
 import java.text.MessageFormat;
 import java.util.List;
 
+import static com.zhytnik.converter.example.Logger.YELLOW;
+import static com.zhytnik.converter.example.Logger.log;
 import static java.text.MessageFormat.format;
 import static java.util.Arrays.stream;
 
@@ -18,16 +20,15 @@ import static java.util.Arrays.stream;
 class Saver {
 
     private final File folder;
-    private Object data;
-    private boolean clear;
+    private final boolean clear;
 
-    Saver(File folder, Object data, boolean clear) {
+    Saver(File folder, boolean clear) {
         this.folder = folder;
-        this.data = data;
         this.clear = clear;
     }
 
-    public void save() {
+    public void save(Object data) throws IOException {
+        createIfNotExist(folder);
         if (clear) clearFolder(folder);
         if (data instanceof List) {
             writeImages(folder, (List<Image>) data);
@@ -36,45 +37,31 @@ class Saver {
         }
     }
 
-    private void clearFolder(File folder) {
-        if (!folder.exists()) {
-            create(folder);
-            return;
-        }
-        System.out.println(MessageFormat.format("Clearing \"{0}\" folder", folder));
+    private boolean createIfNotExist(File file) throws IOException {
+        return !file.exists() && file.mkdirs();
+    }
+
+    private void clearFolder(File folder) throws IOException {
+        log(MessageFormat.format("Clearing \"{0}\"", folder), YELLOW);
         File[] files = folder.listFiles();
         if (files != null) stream(files).forEach(File::delete);
     }
 
-    private void create(File file) {
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void write(File folder, ByteArrayOutputStream data) {
-        System.out.println(MessageFormat.format("Started save file to \"{0}\" folder", folder));
-        String file = MessageFormat.format("{0}{1}output.pdf", folder.getAbsoluteFile(), File.separator);
+    private void write(File folder, ByteArrayOutputStream data) throws IOException {
+        log(MessageFormat.format("Save pdf to \"{0}\"", folder), YELLOW);
+        String file = MessageFormat.format("{0}/output.pdf", folder.getAbsoluteFile());
         try (OutputStream output = new BufferedOutputStream(new FileOutputStream(file))) {
             output.write(data.toByteArray());
             output.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    private void writeImages(File folder, List<Image> images) {
-        System.out.println(MessageFormat.format("Started save images to \"{0}\" folder", folder));
-        try {
-            for (int i = 0; i < images.size(); i++) {
-                final Image image = images.get(i);
-                final File file = generatePageFile(folder, i + 1);
-                ImageIO.write((BufferedImage) image, "png", file);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private void writeImages(File folder, List<Image> images) throws IOException {
+        log(MessageFormat.format("Save images to \"{0}\"", folder), YELLOW);
+        for (int i = 0; i < images.size(); i++) {
+            final Image image = images.get(i);
+            final File file = generatePageFile(folder, i + 1);
+            ImageIO.write((BufferedImage) image, "png", file);
         }
     }
 
