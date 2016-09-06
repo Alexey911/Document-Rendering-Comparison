@@ -23,6 +23,7 @@ import static com.zhytnik.converter.common.Type.TIFF;
  */
 public class JaiTiffConverter implements SelectiveConverter<InputStream, Image>, PageObserver<InputStream> {
 
+    private TIFFImageReadParam readParameters = new TIFFImageReadParam();
     private TIFFImageReaderSpi readerProvider = new TIFFImageReaderSpi();
 
     @Override
@@ -32,7 +33,7 @@ public class JaiTiffConverter implements SelectiveConverter<InputStream, Image>,
             reader.setInput(image, true, true);
             return read(reader, begin, end);
         } finally {
-            reader.dispose();
+            reader.reset();
         }
     }
 
@@ -43,16 +44,16 @@ public class JaiTiffConverter implements SelectiveConverter<InputStream, Image>,
             reader.setInput(image, false, true);
             return read(reader, 0, reader.getNumImages(true));
         } finally {
-            reader.dispose();
+            reader.reset();
         }
     }
 
     private List<Image> read(ImageReader reader, int begin, int end) throws IOException {
-        final List<Image> images = new ArrayList<>(end - begin);
+        final List<Image> pages = new ArrayList<>(end - begin);
         for (int i = begin; i < end; i++) {
-            images.add(reader.read(i, new TIFFImageReadParam()));
+            pages.add(reader.read(i, readParameters));
         }
-        return images;
+        return pages;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class JaiTiffConverter implements SelectiveConverter<InputStream, Image>,
             reader.setInput(image, false, true);
             return reader.getNumImages(true);
         } finally {
-            reader.dispose();
+            reader.reset();
         }
     }
 
@@ -81,6 +82,6 @@ public class JaiTiffConverter implements SelectiveConverter<InputStream, Image>,
 
     @Override
     public String toString() {
-        return "JAI Image I/O converter of Tiff";
+        return "JAI Image I/O converter of Tiff format";
     }
 }
