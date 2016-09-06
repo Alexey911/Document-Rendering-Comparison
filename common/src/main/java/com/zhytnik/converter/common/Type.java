@@ -12,7 +12,8 @@ public enum Type {
     PPT("ppt"),
     PPTX("pptx"),
     XLS("xls"),
-    XLSX("xlsx");
+    XLSX("xlsx"),
+    TIFF("tif");
 
     private final String extension;
 

@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JUnitPlatform.class)
 @ExtendWith(ConversionExtension.class)
+@SuppressWarnings("unused")
 public abstract class ConverterTest {
 
     int from = 0;

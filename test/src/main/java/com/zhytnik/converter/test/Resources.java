@@ -26,6 +26,7 @@ class Resources {
             .put(DOCX, 2)
             .put(XLS, 3)
             .put(XLSX, 2)
+            .put(TIFF, 10)
             .build();
 
     private Resources() {
