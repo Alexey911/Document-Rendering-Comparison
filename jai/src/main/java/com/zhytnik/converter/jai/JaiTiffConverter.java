@@ -21,7 +21,7 @@ import static com.zhytnik.converter.common.Type.TIFF;
  * @author Alexey Zhytnik
  * @since 06.09.2016
  */
-public class TiffConverter implements SelectiveConverter<InputStream, Image>, PageObserver<InputStream> {
+public class JaiTiffConverter implements SelectiveConverter<InputStream, Image>, PageObserver<InputStream> {
 
     private TIFFImageReaderSpi readerProvider = new TIFFImageReaderSpi();
 
@@ -77,5 +77,10 @@ public class TiffConverter implements SelectiveConverter<InputStream, Image>, Pa
     @Override
     public boolean isSupported(Type type) {
         return type == TIFF;
+    }
+
+    @Override
+    public String toString() {
+        return "JAI Image I/O converter of Tiff";
     }
 }

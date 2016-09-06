@@ -9,7 +9,7 @@ import static com.zhytnik.converter.common.Type.TIFF;
  * @author Alexey Zhytnik
  * @since 06.09.2016
  */
-public class TiffConverterTest extends ConverterTest {
+public class JaiTiffConverterTest extends ConverterTest {
 
     @Override
     protected Type getType() {
@@ -17,7 +17,7 @@ public class TiffConverterTest extends ConverterTest {
     }
 
     @Override
-    protected TiffConverter getConverter() {
-        return new TiffConverter();
+    protected JaiTiffConverter getConverter() {
+        return new JaiTiffConverter();
     }
 }
