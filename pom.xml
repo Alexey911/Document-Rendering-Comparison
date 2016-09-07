@@ -29,7 +29,6 @@
         <module>jodconverter</module>
         <module>documents4j</module>
         <module>smartxls</module>
-        <module>easypdf</module>
         <module>jai</module>
     </modules>
 
