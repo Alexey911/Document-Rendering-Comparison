@@ -13,7 +13,8 @@ public enum Type {
     PPTX("pptx"),
     XLS("xls"),
     XLSX("xlsx"),
-    TIFF("tif");
+    TIFF("tif"),
+    DXF("dxf");
 
     private final String extension;
 

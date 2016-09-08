@@ -30,6 +30,7 @@
         <module>documents4j</module>
         <module>smartxls</module>
         <module>jai</module>
+        <module>kabeja</module>
     </modules>
 
     <build>
