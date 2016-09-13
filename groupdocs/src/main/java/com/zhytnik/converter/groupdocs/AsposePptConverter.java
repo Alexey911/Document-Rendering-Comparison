@@ -19,4 +19,9 @@ public class AsposePptConverter extends AsposeConverter {
     public boolean isSupported(Type type) {
         return type == PPT;
     }
+
+    @Override
+    public String toString() {
+        return "Aspose ppt to image converter";
+    }
 }

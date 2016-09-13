@@ -19,4 +19,9 @@ public class AsposeTifConverter extends AsposeConverter {
     public boolean isSupported(Type type) {
         return type == TIFF;
     }
+
+    @Override
+    public String toString() {
+        return "Aspose tif to image converter";
+    }
 }

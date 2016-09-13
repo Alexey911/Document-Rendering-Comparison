@@ -19,4 +19,9 @@ public class AsposePdfConverter extends AsposeConverter {
     public boolean isSupported(Type type) {
         return type == PDF;
     }
+
+    @Override
+    public String toString() {
+        return "Aspose pdf to image converter";
+    }
 }
