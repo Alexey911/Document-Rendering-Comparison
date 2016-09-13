@@ -3,21 +3,21 @@ package com.zhytnik.converter.groupdocs;
 import com.zhytnik.converter.common.Type;
 import com.zhytnik.converter.test.ConverterTest;
 
-import static com.zhytnik.converter.common.Type.XLS;
+import static com.zhytnik.converter.common.Type.PPT;
 
 /**
  * @author Alexey Zhytnik
  * @since 13-Sep-16
  */
-public class AsposeXlsConverterTest extends ConverterTest {
+public class AsposePptConverterTest extends ConverterTest {
 
     @Override
     protected Type getType() {
-        return XLS;
+        return PPT;
     }
 
     @Override
-    protected AsposeXlsConverter getConverter() {
-        return new AsposeXlsConverter();
+    protected AsposePptConverter getConverter() {
+        return new AsposePptConverter();
     }
 }
