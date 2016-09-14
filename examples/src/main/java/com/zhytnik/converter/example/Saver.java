@@ -31,9 +31,21 @@ class Saver {
         createIfNotExist(folder);
         if (clear) clearFolder(folder);
         if (data instanceof List) {
+            saveImages((List) data);
+            return;
+        }
+        write(folder, (ByteArrayOutputStream) data);
+    }
+
+    private boolean isImageList(List data) {
+        return data.get(0) instanceof Image;
+    }
+
+    private void saveImages(List data) throws IOException {
+        if (isImageList(data)) {
             writeImages(folder, (List<Image>) data);
         } else {
-            write(folder, (ByteArrayOutputStream) data);
+            writeRowImages(folder, (List<ByteArrayOutputStream>) data);
         }
     }
 
@@ -62,6 +74,16 @@ class Saver {
             final Image image = images.get(i);
             final File file = generatePageFile(folder, i + 1);
             ImageIO.write((BufferedImage) image, "png", file);
+        }
+    }
+
+    private void writeRowImages(File folder, List<ByteArrayOutputStream> images) throws IOException {
+        log(MessageFormat.format("Save images to \"{0}\"", folder), YELLOW);
+        for (int i = 0; i < images.size(); i++) {
+            final File file = generatePageFile(folder, i + 1);
+            OutputStream output = new FileOutputStream(file);
+            output.write(images.get(i).toByteArray());
+            output.close();
         }
     }
 
