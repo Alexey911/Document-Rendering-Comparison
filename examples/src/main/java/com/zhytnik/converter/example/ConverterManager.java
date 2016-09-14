@@ -11,10 +11,14 @@ import com.zhytnik.converter.documents4j.Docs4jDocToPdfConverter;
 import com.zhytnik.converter.documents4j.Docs4jDocxToPdfConverter;
 import com.zhytnik.converter.documents4j.Docs4jXlsToPdfConverter;
 import com.zhytnik.converter.ghost4j.Ghost4JConverter;
+import com.zhytnik.converter.groupdocs.*;
 import com.zhytnik.converter.icepdf.IcePdfConverter;
+import com.zhytnik.converter.jai.JaiTiffConverter;
 import com.zhytnik.converter.jodconverter.JodDocToPdfConverter;
 import com.zhytnik.converter.jodconverter.JodPptToPdfConverter;
 import com.zhytnik.converter.jodconverter.JodXlsToPdfConverter;
+import com.zhytnik.converter.jwordconverter.JWordConverter;
+import com.zhytnik.converter.kabeja.KabejaDxfToPdfConverter;
 import com.zhytnik.converter.pdfbox.PdfBoxConverter;
 import com.zhytnik.converter.pdfrenderer.PdfRendererConverter;
 import com.zhytnik.converter.smartxls.SmartXlsConverter;
@@ -63,7 +67,20 @@ class ConverterManager {
                 new PdfBoxConverter(),
                 new PdfRendererConverter(),
                 new SmartXlsConverter(),
-                new SmartXlsxConverter()
+                new SmartXlsxConverter(),
+                new AsposeXlsConverter(),
+                new AsposeXlsxConverter(),
+                new AsposeDocConverter(),
+                new AsposeDocxConverter(),
+                new AsposePdfConverter(),
+                new AsposePptxConverter(),
+                new AsposePptConverter(),
+                new AsposeTifConverter(),
+                new AsposeDwgConverter(),
+                new AsposeDxfConverter(),
+                new KabejaDxfToPdfConverter(),
+                new JaiTiffConverter(),
+                new JWordConverter()
         );
     }
 
