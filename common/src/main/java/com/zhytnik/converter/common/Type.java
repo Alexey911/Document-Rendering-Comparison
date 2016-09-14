@@ -14,7 +14,9 @@ public enum Type {
     XLS("xls"),
     XLSX("xlsx"),
     TIFF("tif"),
-    DXF("dxf");
+    DXF("dxf"),
+    DWG("dwg"),
+    MSG("msg");
 
     private final String extension;
 
