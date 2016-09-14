@@ -17,7 +17,7 @@ import static com.zhytnik.converter.common.Type.DOC;
  * @author Alexey Zhytnik
  * @since 30-Aug-16
  */
-public class PoiDocToPdfConverter implements
+public class PoiDocToDocxConverter implements
         Converter<InputStream, ByteArrayOutputStream>, PageObserver<InputStream> {
 
     private static final PrintStream DO_NOTHING_PRINT;
@@ -60,6 +60,6 @@ public class PoiDocToPdfConverter implements
 
     @Override
     public String toString() {
-        return "Docx4J wrapper of Apache POI doc to pdf converter";
+        return "Docx4J wrapper of Apache POI docx to pdf converter";
     }
 }

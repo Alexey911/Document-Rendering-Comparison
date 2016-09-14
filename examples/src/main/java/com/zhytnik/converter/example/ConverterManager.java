@@ -1,6 +1,6 @@
 package com.zhytnik.converter.example;
 
-import com.zhytnik.converter.apachepoi.doc.PoiDocToPdfConverter;
+import com.zhytnik.converter.apachepoi.doc.PoiDocToDocxConverter;
 import com.zhytnik.converter.apachepoi.doc.PoiDocxToPdfConverter;
 import com.zhytnik.converter.apachepoi.slideshow.PoiPptConverter;
 import com.zhytnik.converter.apachepoi.slideshow.PoiPptxConverter;
@@ -51,7 +51,7 @@ class ConverterManager {
 
     static List<Converter> getAll() {
         return Arrays.asList(
-                new PoiDocToPdfConverter(),
+                new PoiDocToDocxConverter(),
                 new PoiDocxToPdfConverter(),
                 new PoiPptConverter(),
                 new PoiPptxConverter(),
@@ -137,7 +137,7 @@ class ConverterManager {
     private Converter getApachePOIConverter() {
         if (isFormat(PPT))  return new PoiPptConverter();
         if (isFormat(PPTX)) return new PoiPptxConverter();
-        if (isFormat(DOC))  return new PoiDocToPdfConverter();
+        if (isFormat(DOC))  return new PoiDocToDocxConverter();
         if (isFormat(DOCX)) return new PoiDocxToPdfConverter();
         return failOnUnknownFormat();
     }

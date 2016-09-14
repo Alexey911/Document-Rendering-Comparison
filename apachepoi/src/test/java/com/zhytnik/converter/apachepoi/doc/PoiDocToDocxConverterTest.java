@@ -9,7 +9,7 @@ import static com.zhytnik.converter.common.Type.DOC;
  * @author Alexey Zhytnik
  * @since 31-Aug-16
  */
-public class PoiDocToPdfConverterTest extends ConverterTest {
+public class PoiDocToDocxConverterTest extends ConverterTest {
 
     @Override
     protected Type getType() {
@@ -17,7 +17,7 @@ public class PoiDocToPdfConverterTest extends ConverterTest {
     }
 
     @Override
-    protected PoiDocToPdfConverter getConverter() {
-        return new PoiDocToPdfConverter();
+    protected PoiDocToDocxConverter getConverter() {
+        return new PoiDocToDocxConverter();
     }
 }
