@@ -33,6 +33,7 @@
         <module>kabeja</module>
         <module>groupdocs</module>
         <module>jwordconverter</module>
+        <module>benchmark</module>
     </modules>
 
     <build>
