@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jwordconverter</artifactId>
+
+    <parent>
+        <artifactId>comparison</artifactId>
+        <groupId>com.zhytnik.converter</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zhytnik.converter</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qoppa</groupId>
+            <artifactId>jwordconverter</artifactId>
+            <version>v2016R2</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/resources/jwordconvert.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.zhytnik.converter</groupId>
+            <artifactId>test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

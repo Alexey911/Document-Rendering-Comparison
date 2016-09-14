@@ -31,7 +31,7 @@
         <module>smartxls</module>
         <module>jai</module>
         <module>kabeja</module>
-        <module>groupdocs</module>
+        <module>jwordconverter</module>
     </modules>
 
     <build>
