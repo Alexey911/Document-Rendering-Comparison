@@ -23,7 +23,7 @@ import static org.openjdk.jmh.annotations.Level.Invocation;
  */
 @State(Scope.Benchmark)
 @SuppressWarnings({"unchecked", "unused"})
-class Benchmarks {
+public class Benchmarks {
 
     InputStream data;
 

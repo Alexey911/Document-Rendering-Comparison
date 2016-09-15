@@ -34,6 +34,7 @@
         <module>groupdocs</module>
         <module>jwordconverter</module>
         <module>benchmark</module>
+        <module>jmsg</module>
     </modules>
 
     <build>
